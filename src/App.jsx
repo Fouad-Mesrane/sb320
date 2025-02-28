@@ -1,15 +1,18 @@
 
-const BASE_URL = import.meta.env.BASE_URL
-const API_KEY = import.meta.env.API_KEY
-function App() {
-  console.log(BASE_URL)
-  console.log(API_KEY)
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+
+export default function App() {
+
 
   return (
-    <>
-     hi
-    </>
-  )
-}
+    <div className="min-h-screen bg-gray-100 text-gray-800">
 
-export default App
+
+      <Routes>
+        <Route index element={<Home/>}/>
+      </Routes>
+     
+    </div>
+  );
+}
