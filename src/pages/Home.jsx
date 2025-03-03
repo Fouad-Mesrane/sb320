@@ -3,43 +3,18 @@ import Header from "../components/Header";
 import { useCoins } from "../context/CoinProvider";
 import { Link } from "react-router-dom";
 const Home = () => {
-  const { coins, loading } = useCoins();
-  const [searchQuery, setSearchQuery] = useState("");
+  const { filteredCoins, loading, trackedCoins, toggleTrackCoin } = useCoins();
+  
 
-  const [trackedCoins, setTrackedCoins] = useState(() => {
-    // Retrieve tracked coins from local storage
-    const savedCoins = localStorage.getItem("trackedCoins");
-    return savedCoins ? JSON.parse(savedCoins) : [];
-  });
 
-  // Toggle coin tracking
-  const toggleTrackCoin = (coinId) => {
-    const newTrackedCoins = trackedCoins.includes(coinId)
-      ? trackedCoins.filter((id) => id !== coinId)
-      : [...trackedCoins, coinId];
 
-    setTrackedCoins(newTrackedCoins);
-    localStorage.setItem("trackedCoins", JSON.stringify(newTrackedCoins)); // Sync with localStorage
-  };
-
-  // Filter coins based on search query
-  const filteredCoins = coins.filter(
-    (coin) =>
-      coin.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      coin.symbol.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+ 
   return (
     <div>
       <Header />
 
       <main className="p-6">
-        <input
-          type="text"
-          placeholder="Search for a cryptocurrency..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="p-2 border border-gray-300 rounded-lg w-full"
-        />
+        
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {loading ? (
             <div className="text-center text-xl">Loading...</div>
